@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static ADOFAIAutoPlayer.OfficialLevels.WorldXOX;
+using static ADOFAIAutoPlayer.Program;
 using static ADOFAIAutoPlayer.Angles;
 
 namespace ADOFAIAutoPlayer
@@ -107,7 +107,7 @@ namespace ADOFAIAutoPlayer
         }
         public static decimal gimmemillis()
         {
-            decimal yeet = (60000 / (BPM * speed) - Convert.ToDecimal(1.2));
+            decimal yeet = (60000 / (BPM * speed) - 1.3m);
             return yeet;
         }
     }

@@ -123,7 +123,7 @@ namespace ADOFAIAutoPlayer
             public static int BPM = 164;
             public static decimal speed = 1;
             public static string key = "K";
-            public static int[] floorbpms = {70, 328, 327, 164, 417, 328, 748, 164, 818, 43};
+            public static int[] floorbpms = {71, 328, 328, 164, 418, 328, 749, 164, 819, 43};
         }
     }
 }
