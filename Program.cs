@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 //using static ADOFAIAutoPlayer.OfficialLevels.WorldXOX;
 using static ADOFAIAutoPlayer.LevelCalcThingy;
@@ -17,13 +18,14 @@ namespace ADOFAIAutoPlayer
         public static int[] twirls = {84, 89, 94, 99, 104, 109, 166, 235, 240, 271, 276};
         static void Main(string[] args)
         {
+            var sb = new StringBuilder();
             bool twirled = false;
             bool setspeed = true;
             bool twirlmax = false;
             int arri = 0;
             int arrri = 0;
             string fulltxt = "";
-            string path = @"D:\YeetMacro\World4butCPNigh.mcr";
+            string path = @"D:\YeetMacro\World4butCPNighFaster.mcr";
             int numbetiles = 0;
             char tileP = 'R';
             Console.WriteLine("[FinalResult] hello!");
@@ -31,7 +33,7 @@ namespace ADOFAIAutoPlayer
             {
                 if (($"{tileP}{tile}" == "DU")|| ($"{tileP}{tile}" == "UD"))
                 {
-                    fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2*gimmemillis())}\n";
+                    sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2*gimmemillis())}\n");
                 }
                 else
                 {
@@ -41,11 +43,11 @@ namespace ADOFAIAutoPlayer
                     {
                         if (flag)
                         {
-                            fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(GetRelativeAngle(ConvertTile(tileP, false), ConvertTile(tile, false)))}\n";
+                            sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(GetRelativeAngle(ConvertTile(tileP, false), ConvertTile(tile, false)))}\n");
                         }
                         else
                         {
-                            fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(GetRelativeAngle(ConvertTile(tileP, true), ConvertTile(tile, true)))}\n";
+                            sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(GetRelativeAngle(ConvertTile(tileP, true), ConvertTile(tile, true)))}\n");
                         }
                     }
                     else
@@ -54,22 +56,22 @@ namespace ADOFAIAutoPlayer
                         {
                             if ((2 * gimmemillis() - GetRelativeAngle(ConvertTile(tileP, false), ConvertTile(tile, false)))==0)
                             {
-                                fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis())}\n";
+                                sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis())}\n");
                             }
                             else
                             {
-                                fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis() - GetRelativeAngle(ConvertTile(tileP, false), ConvertTile(tile, false)))}\n";
+                                sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis() - GetRelativeAngle(ConvertTile(tileP, false), ConvertTile(tile, false)))}\n");
                             }
                         }
                         else
                         {
                             if((2 * gimmemillis() - GetRelativeAngle(ConvertTile(tileP, true), ConvertTile(tile, true))) == 0)
                             {
-                                fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis())}\n";
+                                sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2 * gimmemillis())}\n");
                             }
                             else
                             {
-                                fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2*gimmemillis()-GetRelativeAngle(ConvertTile(tileP, true), ConvertTile(tile, true)))}\n";
+                                sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp\nDELAY : {Convert.ToInt32(2*gimmemillis()-GetRelativeAngle(ConvertTile(tileP, true), ConvertTile(tile, true)))}\n");
                             }
                             
                         }
@@ -106,7 +108,8 @@ namespace ADOFAIAutoPlayer
                     }
                 }
             }
-            fulltxt += $"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp";
+            sb.Append($"Keyboard : {key} : KeyDown\nKeyboard : {key} : KeyUp");
+            fulltxt = sb.ToString();
             using var sw = new StreamWriter(path);
             sw.WriteLine(fulltxt);
             Console.WriteLine("data written to file");
